@@ -18,7 +18,14 @@
 2. **《CEO 重要消息交付协议 v1》**：三段式交付：文件 → 通知 → 记忆沉淀
 3. **《子 Agent 派工机制验证失败归档报告》**：没有 ACK 不算派工，没有 worker 不算可执行
 
-### 1.3 组织架构
+### 1.3 铁律
+1. **没有 Codex 原始调用证据不算执行完成**
+2. **没有运行证据不得声称已执行**
+3. **必须区分 actual_execution 和 execution_unverified**
+4. **codex-runs 是原始证据源，codex-reports 是人工整理报告**
+5. **没有 codex-runs 证据目录，不得声称 Codex 已真实执行**
+
+### 1.4 组织架构
 - **CEO（千尘）**：判断、拆解、授权、验收、记忆沉淀、用户汇报
 - **Codex（工程外挂）**：代码审查、补丁草稿、本地验证、diff、测试建议
 - **message_bus**：只做状态副本
@@ -263,6 +270,41 @@ report_path: "报告文件路径"
 - **Telegram**：只发摘要和链接，不发送完整报告
 - **状态类型**：`codex_review`、`codex_cooldown`、`idle`
 
+### 5.4 运行证据结构
+**必须创建证据目录**：`qianchen-os-docs/codex-runs/<task_id>/`
+
+**目录内容**：
+- `task.yaml`：任务单文件
+- `command.txt`：原始调用命令
+- `stdout.txt`：标准输出
+- `stderr.txt`：标准错误
+- `exit-code.txt`：退出代码
+- `last-message.md`：最后消息
+- `run-metadata.json`：运行元数据
+
+**run-metadata.json 必须包含**：
+```json
+{
+  "task_id": "CODEX-YYYYMMDD-NNN",
+  "started_at": "ISO-8601",
+  "finished_at": "ISO-8601",
+  "executor": "Human-Tool|Codex-Adapter",
+  "codex_cli_version": "版本号",
+  "sandbox": "true|false",
+  "approval_mode": "auto|manual",
+  "exit_code": 0,
+  "usage_limit_detected": false,
+  "report_path": "qianchen-os-docs/codex-reports/..."
+}
+```
+
+**证据规则**：
+- `codex-runs`：原始证据源
+- `codex-reports`：CEO/人工整理报告
+- 没有 `codex-runs` 证据目录，不得声称 Codex 已真实执行
+- 如果是人工整理，必须明确标注为 `Codex-style report`
+- CEO 写入 memory 时必须标注 `actual_execution` 或 `execution_unverified`
+
 ---
 
 ## 6. 安全规则
@@ -299,6 +341,8 @@ report_path: "报告文件路径"
 3. ✅ **没有验证命令/验证结果不算完成**：必须提供可执行的验证方法
 4. ✅ **没有写入 memory 不算 CEO 已吸收**：CEO 必须将摘要写入 memory
 5. ✅ **没有明确"未完成事项"不算合格报告**：必须说明遗留问题
+6. ✅ **没有 Codex 原始调用证据不算执行完成**：必须有 codex-runs 证据目录
+7. ✅ **没有运行证据不得声称已执行**：必须区分 actual_execution 和 execution_unverified
 
 ### 7.2 验收流程
 ```

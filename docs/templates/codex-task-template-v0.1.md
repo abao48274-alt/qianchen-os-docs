@@ -229,7 +229,22 @@ notes: "重点检查输入参数验证和错误处理机制"
 - **格式**：`qianchen-os-docs/codex-reports/YYYY-MM-DD-[task_type]-[来源].md`
 - **示例**：`qianchen-os-docs/codex-reports/2026-05-14-read-only-generate-proposals.md`
 
-### 5.2 安全规则
+### 5.2 运行证据规则
+- **必须**：创建证据目录 `qianchen-os-docs/codex-runs/<task_id>/`
+- **必须**：包含以下文件：
+  - `task.yaml`：任务单文件
+  - `command.txt`：原始调用命令
+  - `stdout.txt`：标准输出
+  - `stderr.txt`：标准错误
+  - `exit-code.txt`：退出代码
+  - `last-message.md`：最后消息
+  - `run-metadata.json`：运行元数据
+- **必须**：run-metadata.json 包含 task_id、started_at、finished_at、executor、codex_cli_version、sandbox、approval_mode、exit_code、usage_limit_detected、report_path
+- **铁律**：没有 Codex 原始调用证据不算执行完成
+- **铁律**：没有运行证据不得声称已执行
+- **铁律**：必须区分 actual_execution 和 execution_unverified
+
+### 5.3 安全规则
 - **不允许**：直接改 main
 - **不允许**：自动 git push
 - **不允许**：碰 token/.env/openclaw.json
