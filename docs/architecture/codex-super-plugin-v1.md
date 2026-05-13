@@ -47,7 +47,7 @@
 5. ❌ **不执行危险操作**：不执行删除、清库、重装、kill 大范围进程
 6. ❌ **不自动重试**：命中 usage limit 进入 cooldown，不自动重试
 7. ❌ **不替代 CEO 决策**：只提建议，不拍板
-8. ❌ **不直接写 message_bus**：只输出文件，由 CEO 或 tools_agent 写状态副本
+8. ❌ **不直接写 message_bus**：只输出文件，由 CEO 或 Human-Tool 写状态副本（tools_agent 未来 worker 实现后可承接）
 
 ### 2.3 什么时候该用 Codex
 1. **P0/P1 故障**：系统故障、服务中断
@@ -231,13 +231,14 @@ report_path: "报告文件路径"
 ```
 1. CEO 判断需要 Codex 审查
 2. CEO 创建任务单文件
-3. CEO 用短消息通知 tools_agent 调用 Codex
-4. tools_agent 读取任务单并调用 Codex
-5. Codex 执行任务并输出文件
-6. CEO 用短消息读取报告
-7. CEO 写入 memory/YYYY-MM-DD.md
-8. message_bus 只写状态副本
-9. Telegram 只发摘要和链接
+3. CEO 通过 Codex Adapter 或 Human-Tool 调用 Codex
+4. Codex 执行任务并输出文件
+5. CEO 用短消息读取报告
+6. CEO 写入 memory/YYYY-MM-DD.md
+7. message_bus 只写状态副本
+8. Telegram 只发摘要和链接
+
+注：tools_agent 当前无 worker/ACK 机制，未来 worker 实现后可承接调用职责。
 ```
 
 ### 5.2 三段式交付（基于《CEO 重要消息交付协议 v1》）
