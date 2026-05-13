@@ -171,11 +171,11 @@ repo: "/home/administrator/.openclaw/workspace/ai-company"
 
 # 目标文件
 target_files:
-  - "generate_proposals.py"
-  - "docs/specs/proposal-generation-spec.md"
+  - "coding_agent_server.py"
+  - "qianchen-os-docs/docs/specs/generate-proposals-v1.md"
 
 # 任务范围
-scope: "审查 generate_proposals 函数是否符合规格说明书要求，包括输入输出格式、错误处理、性能要求"
+scope: "只读审查 ai-company/coding_agent_server.py 中的 generate_proposals 函数是否符合 qianchen-os-docs/docs/specs/generate-proposals-v1.md 规格要求，包括输出结构、steps、risks、acceptance_criteria、owner、priority、evidence 字段。"
 
 # 禁止操作
 forbidden:
