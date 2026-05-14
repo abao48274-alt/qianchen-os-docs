@@ -172,8 +172,8 @@ qianchen-os-docs/codex-reports/2026-05-14-read-only-generate-proposals.md
   "started_at": "2026-05-14T08:25:00Z",
   "finished_at": "2026-05-14T08:30:00Z",
   "codex_cli_version": "1.0.0",
-  "sandbox": true,
-  "approval_mode": "auto",
+  "sandbox": "read-only",
+  "approval_mode": "never",
   "exit_code": 0,
   "usage_limit_detected": false,
   "boundary_violation_detected": false,
@@ -193,7 +193,7 @@ qianchen-os-docs/codex-reports/2026-05-14-read-only-generate-proposals.md
 | started_at | string | ✅ | 开始时间 ISO-8601 |
 | finished_at | string | ✅ | 结束时间 ISO-8601 |
 | codex_cli_version | string | ✅ | Codex CLI 版本 |
-| sandbox | boolean | ✅ | 是否在沙箱中运行 |
+| sandbox | string | ✅ | 沙箱模式：read-only（只读）或 workspace-write（可写） |
 | approval_mode | string | ✅ | 审批模式：auto/manual |
 | exit_code | number | ✅ | 退出代码 |
 | usage_limit_detected | boolean | ✅ | 是否检测到 usage limit |
@@ -286,8 +286,8 @@ qianchen-os-docs/codex-runs/CODEX-20260514-001/
   "started_at": "2026-05-14T08:25:00Z",
   "finished_at": "2026-05-14T08:30:00Z",
   "codex_cli_version": "1.0.0",
-  "sandbox": true,
-  "approval_mode": "auto",
+  "sandbox": "read-only",
+  "approval_mode": "never",
   "exit_code": 0,
   "usage_limit_detected": false,
   "boundary_violation_detected": false,

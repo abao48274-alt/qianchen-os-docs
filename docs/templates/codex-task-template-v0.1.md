@@ -57,6 +57,8 @@ acceptance_criteria:  # 必填，数组格式
 # 执行限制
 timeout: 300  # 超时时间（秒），必填，建议 300-600 秒
 cost_limit: 0.50  # 成本限制（美元），必填，建议 0.10-1.00 美元
+sandbox: "read-only"  # 必填：read-only（只读审查）或 workspace-write（生成补丁）
+approval_mode: "never"  # 必填：auto（自动审批）或 manual（手动审批）或 never（从不审批）
 
 # 输出路径
 output_path: "输出文件路径"  # 可选，如生成补丁文件
@@ -91,6 +93,8 @@ notes: "备注信息"  # 备注
 
 **填写要点**：
 - `task_type`：`read-only`
+- `sandbox`：必须为 `read-only`
+- `approval_mode`：建议 `never`
 - `scope`：明确审查重点和范围
 - `target_files`：指定要审查的文件
 - `acceptance_criteria`：要求报告包含问题分析、风险识别、改进建议
@@ -108,6 +112,8 @@ notes: "备注信息"  # 备注
 
 **填写要点**：
 - `task_type`：`patch-only`
+- `sandbox`：必须为 `workspace-write`
+- `approval_mode`：建议 `never`（只生成补丁，不直接应用）
 - `scope`：明确要修复的问题
 - `target_files`：指定要修改的文件
 - `acceptance_criteria`：要求补丁能正常应用、包含验证命令
@@ -125,6 +131,8 @@ notes: "备注信息"  # 备注
 
 **填写要点**：
 - `task_type`：`local-verify`
+- `sandbox`：建议 `read-only`
+- `approval_mode`：建议 `never`
 - `scope`：明确验证目标和范围
 - `target_files`：指定相关文件
 - `acceptance_criteria`：要求提供可执行的验证命令、测试用例
@@ -142,6 +150,8 @@ notes: "备注信息"  # 备注
 
 **填写要点**：
 - `task_type`：`PR-review`
+- `sandbox`：建议 `read-only`
+- `approval_mode`：建议 `never`
 - `scope`：明确审查重点和变更范围
 - `target_files`：指定变更文件
 - `acceptance_criteria`：要求分析变更影响、评估风险、提供合并建议
@@ -198,6 +208,8 @@ acceptance_criteria:
 # 执行限制
 timeout: 300
 cost_limit: 0.30
+sandbox: "read-only"
+approval_mode: "never"
 
 # 输出路径
 output_path: ""
