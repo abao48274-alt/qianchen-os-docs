@@ -359,6 +359,22 @@ class ConversationParser(BaseParser):
 
 ## 5. 运行报告 JSON 格式
 
+### 5.0 状态枚举定义
+
+| 状态 | 说明 | 触发条件 |
+|------|------|----------|
+| `learning_completed` | 学习完成，有输出 | 正式运行，找到学习样本，创建/更新了模型 |
+| `learning_no_candidate` | 学习完成，无候选 | 正式运行，读取到有效样本，但最终无有效候选 |
+| `learning_unverified` | 学习未验证 | 脚本运行成功，但学习结果不可信 |
+| `learning_input_missing` | 输入缺失 | 未找到输入文件或文件为空 |
+| `learning_parser_failed` | 解析失败 | 读取到文件但 total_samples = 0 |
+| `dry_run_completed` | dry-run 完成 | dry-run 模式，读取到文件且 total_samples > 0 |
+
+**关键区分**：
+- `dry_run_completed`：dry-run 模式，只验证输入链路和解析链路，不代表学习完成
+- `learning_no_candidate`：正式运行，读取到有效样本但最终无有效候选
+- `learning_parser_failed`：读取到文件但解析失败（total_samples = 0）
+
 ### 5.1 完整格式
 
 ```json
@@ -448,7 +464,7 @@ class ConversationParser(BaseParser):
 {
   "run_id": "behavior_learn_20260515_025500_dry",
   "timestamp": "2026-05-15T02:55:00+08:00",
-  "status": "learning_no_candidate",
+  "status": "dry_run_completed",
   "dry_run": true,
   
   "input_summary": {
@@ -466,6 +482,10 @@ class ConversationParser(BaseParser):
     "total_candidates": 45,
     "final_samples": 0,
     "filter_reasons": {"low_confidence": 30, "neutral_feedback": 15}
+  },
+  
+  "output_summary": {
+    "models_json_modified": false
   }
 }
 ```
@@ -559,10 +579,11 @@ def run_dry_run(args) -> Dict:
 python3 behavior_learner.py --date 2026-05-14 --dry-run
 ```
 
-预期报告：
+预期报告（dry-run 成功）：
 ```json
 {
-  "status": "learning_no_candidate",
+  "status": "dry_run_completed",
+  "dry_run": true,
   "input_summary": {
     "files_read": [{"path": "memory/2026-05-14.md", "size": 10195}],
     "total_files": 1,
@@ -574,9 +595,14 @@ python3 behavior_learner.py --date 2026-05-14 --dry-run
   "filter_summary": {
     "total_candidates": ">0",
     "final_samples": ">=0"
+  },
+  "output_summary": {
+    "models_json_modified": false
   }
 }
 ```
+
+**注意**：dry-run 只验证输入链路和解析链路，不代表学习完成。
 
 ### 7.3 关键验证点
 
