@@ -1,0 +1,17 @@
+warning: `--full-auto` is deprecated; use `--sandbox workspace-write` instead.
+Reading additional input from stdin...
+OpenAI Codex v0.130.0
+--------
+workdir: /home/administrator/.openclaw/workspace/qianchen-os-docs
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, /home/administrator/.codex/memories]
+reasoning effort: none
+reasoning summaries: none
+session id: 019e23cb-8f14-7113-b5e7-ca8e04ea73df
+--------
+user
+请只读审查 qianchen-os-docs/docs/templates/codex-task-template-v0.1.md 模板格式是否完整、字段定义是否清晰、示例是否准确。只输出审查意见，不修改任何文件。
+ERROR: You've hit your usage limit. To get more access now, send a request to your admin or try again at 8:24 AM.
+ERROR: You've hit your usage limit. To get more access now, send a request to your admin or try again at 8:24 AM.

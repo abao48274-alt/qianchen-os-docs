@@ -1,0 +1,53 @@
+# Codex 任务单
+# 任务：read-only actual execution test
+
+# 任务标识
+task_id: "CODEX-20260514-002"
+task_type: "read-only"
+
+# 仓库信息
+repo: "/home/administrator/.openclaw/workspace/qianchen-os-docs"
+
+# 目标文件
+target_files:
+  - "docs/templates/codex-task-template-v0.1.md"
+
+# 任务范围
+scope: "只读审查 codex-task-template-v0.1.md 模板格式是否完整、字段定义是否清晰、示例是否准确"
+
+# 禁止操作
+forbidden:
+  - "git push"
+  - "git commit --amend"
+  - "rm -rf"
+  - "修改任何文件"
+
+# 验收标准
+acceptance_criteria:
+  - "报告包含模板格式分析"
+  - "报告检查字段定义完整性"
+  - "报告验证示例准确性"
+
+# 执行限制
+timeout: 300
+cost_limit: 0.20
+
+# 输出路径
+output_path: ""
+
+# 报告路径
+report_path: "qianchen-os-docs/codex-reports/2026-05-14-read-only-template-review.md"
+
+# 交付协议
+delivery_protocol: "CEO重要消息交付协议v1"
+
+# 降级策略
+fallback:
+  usage_limit: "GPT"
+  timeout: "Human-Tool"
+  boundary_violation: "GPT"
+
+# 附加信息
+priority: "P2"
+related_task: "CODEX-20260514-001"
+notes: "实际执行测试，验证 codex-runs 证据目录生成"

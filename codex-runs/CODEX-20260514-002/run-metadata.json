@@ -1,0 +1,16 @@
+{
+  "task_id": "CODEX-20260514-002",
+  "task_type": "read-only",
+  "repo": "/home/administrator/.openclaw/workspace/qianchen-os-docs",
+  "executor": "Human-Tool",
+  "started_at": "2026-05-14T08:02:00Z",
+  "finished_at": "2026-05-14T08:03:00Z",
+  "codex_cli_version": "0.130.0",
+  "sandbox": true,
+  "approval_mode": "never",
+  "exit_code": 1,
+  "usage_limit_detected": true,
+  "boundary_violation_detected": false,
+  "report_path": "qianchen-os-docs/codex-reports/2026-05-14-read-only-template-review.md",
+  "evidence_status": "execution_unverified"
+}
